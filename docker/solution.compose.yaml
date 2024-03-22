@@ -1,0 +1,101 @@
+version: "3.5"
+name: "bdi"
+
+#include:
+#  - monitor/uptrace.yaml
+
+networks:
+  bdi:
+
+volumes:
+  bdi_data:
+    external: true
+    # remember to call `docker volume create bdi_data`
+  # EXTRA Telemetry and observability - Uptrace
+  ch_data0:
+  pg_data0:
+  #################
+
+services:
+  bdi-api:
+    image: ${IMAGE_NAME}:${IMAGE_TAG}
+    build:
+      context: ..
+      dockerfile: docker/optimized.Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    volumes:
+      - bdi_data:/opt/data
+    environment:
+      - COMPOSE_CONVERT_WINDOWS_PATHS=1
+      - MAX_WORKERS=1
+      - BDI_LOCAL_DIR=/opt/data
+      #- UPTRACE_DSN="http://project2_secret_token@localhost:14317/2"
+      - OTEL_RESOURCE_ATTRIBUTES=deployment.environment=docker
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "2"
+
+  # EXTRA Telemetry and observability - Uptrace
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.7
+    restart: on-failure
+    environment:
+      CLICKHOUSE_DB: uptrace
+    healthcheck:
+      test: ['CMD', 'wget', '--spider', '-q', 'localhost:8123/ping']
+      interval: 1s
+      timeout: 1s
+      retries: 30
+    volumes:
+      - ch_data0:/var/lib/clickhouse
+    ports:
+      - '8123:8123'
+      - '9000:9000'
+
+  postgres:
+    image: postgres:15-alpine
+    restart: on-failure
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_USER: uptrace
+      POSTGRES_PASSWORD: uptrace
+      POSTGRES_DB: uptrace
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U uptrace -d uptrace']
+      interval: 1s
+      timeout: 1s
+      retries: 30
+    volumes:
+      - 'pg_data0:/var/lib/postgresql/data/pgdata'
+    ports:
+      - '5432:5432'
+
+  uptrace:
+    image: 'uptrace/uptrace:1.6.0-rc.1'
+    #image: 'uptrace/uptrace-dev:latest'
+    restart: on-failure
+    volumes:
+      - ./monitor/uptrace.yml:/etc/uptrace/uptrace.yml
+    #environment:
+    #  - DEBUG=2
+    ports:
+      - '14317:14317'
+      - '14318:14318'
+
+  otelcol:
+    image: otel/opentelemetry-collector-contrib:0.88.0
+    restart: on-failure
+    volumes:
+      - ./monitor/otel-collector.yaml:/etc/otelcol-contrib/config.yaml
+    ports:
+      - '4317:4317'
+      - '4318:4318'
+
+  vector:
+    image: timberio/vector:0.28.X-alpine
+    volumes:
+      - ./monitor/vector.toml:/etc/vector/vector.toml:ro

@@ -1,0 +1,14 @@
+[2024-03-15T17:12:08.171+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: download_adsb_exchange_db.download_adsb_exchange_db_task manual__2024-03-15T17:12:06.404514+00:00 [queued]>
+[2024-03-15T17:12:08.177+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: download_adsb_exchange_db.download_adsb_exchange_db_task manual__2024-03-15T17:12:06.404514+00:00 [queued]>
+[2024-03-15T17:12:08.177+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2024-03-15T17:12:08.184+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): download_adsb_exchange_db_task> on 2024-03-15 17:12:06.404514+00:00
+[2024-03-15T17:12:08.187+0000] {standard_task_runner.py:60} INFO - Started process 16755 to run task
+[2024-03-15T17:12:08.190+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'download_adsb_exchange_db', 'download_adsb_exchange_db_task', 'manual__2024-03-15T17:12:06.404514+00:00', '--job-id', '24', '--raw', '--subdir', 'DAGS_FOLDER/dag_download_adsb.py', '--cfg-path', '/tmp/tmpq7lfcui2']
+[2024-03-15T17:12:08.192+0000] {standard_task_runner.py:88} INFO - Job 24: Subtask download_adsb_exchange_db_task
+[2024-03-15T17:12:08.227+0000] {task_command.py:423} INFO - Running <TaskInstance: download_adsb_exchange_db.download_adsb_exchange_db_task manual__2024-03-15T17:12:06.404514+00:00 [running]> on host 33271a7f5777
+[2024-03-15T17:12:08.278+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='download_adsb_exchange_db' AIRFLOW_CTX_TASK_ID='download_adsb_exchange_db_task' AIRFLOW_CTX_EXECUTION_DATE='2024-03-15T17:12:06.404514+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-15T17:12:06.404514+00:00'
+[2024-03-15T17:12:09.461+0000] {logging_mixin.py:188} INFO - File downloaded successfully.
+[2024-03-15T17:12:09.465+0000] {python.py:202} INFO - Done. Returned value was: /opt/***/dags/data/aircraft_type/basic-ac-db.json.gz
+[2024-03-15T17:12:09.480+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=download_adsb_exchange_db, task_id=download_adsb_exchange_db_task, execution_date=20240315T171206, start_date=20240315T171208, end_date=20240315T171209
+[2024-03-15T17:12:09.497+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2024-03-15T17:12:09.509+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

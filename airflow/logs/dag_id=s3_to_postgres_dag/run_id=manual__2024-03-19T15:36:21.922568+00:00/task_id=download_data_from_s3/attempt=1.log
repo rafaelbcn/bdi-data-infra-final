@@ -1,0 +1,26 @@
+[2024-03-19T15:36:23.471+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: s3_to_postgres_dag.download_data_from_s3 manual__2024-03-19T15:36:21.922568+00:00 [queued]>
+[2024-03-19T15:36:23.475+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: s3_to_postgres_dag.download_data_from_s3 manual__2024-03-19T15:36:21.922568+00:00 [queued]>
+[2024-03-19T15:36:23.475+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2024-03-19T15:36:23.481+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): download_data_from_s3> on 2024-03-19 15:36:21.922568+00:00
+[2024-03-19T15:36:23.485+0000] {standard_task_runner.py:60} INFO - Started process 286 to run task
+[2024-03-19T15:36:23.488+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 's3_to_postgres_dag', 'download_data_from_s3', 'manual__2024-03-19T15:36:21.922568+00:00', '--job-id', '30', '--raw', '--subdir', 'DAGS_FOLDER/dag_prepare_s3_rds.py', '--cfg-path', '/tmp/tmpt597s757']
+[2024-03-19T15:36:23.490+0000] {standard_task_runner.py:88} INFO - Job 30: Subtask download_data_from_s3
+[2024-03-19T15:36:23.518+0000] {task_command.py:423} INFO - Running <TaskInstance: s3_to_postgres_dag.download_data_from_s3 manual__2024-03-19T15:36:21.922568+00:00 [running]> on host 33271a7f5777
+[2024-03-19T15:36:23.584+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='s3_to_postgres_dag' AIRFLOW_CTX_TASK_ID='download_data_from_s3' AIRFLOW_CTX_EXECUTION_DATE='2024-03-19T15:36:21.922568+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-19T15:36:21.922568+00:00'
+[2024-03-19T15:36:23.586+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/dag_prepare_s3_rds.py", line 55, in download_data_from_s3
+    keys = s3_hook.list_keys(bucket_name=S3_BUCKET_NAME, prefix=f"readsb-hist/2024/{ds.strftime('%m')}/{ds.strftime('%d')}/")
+AttributeError: 'str' object has no attribute 'strftime'
+[2024-03-19T15:36:23.592+0000] {taskinstance.py:1149} INFO - Marking task as UP_FOR_RETRY. dag_id=s3_to_postgres_dag, task_id=download_data_from_s3, execution_date=20240319T153621, start_date=20240319T153623, end_date=20240319T153623
+[2024-03-19T15:36:23.597+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 30 for task download_data_from_s3 ('str' object has no attribute 'strftime'; 286)
+[2024-03-19T15:36:23.622+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-19T15:36:23.633+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

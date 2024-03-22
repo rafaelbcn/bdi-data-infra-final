@@ -1,0 +1,75 @@
+= Managing Python Dependencies with Poetry
+
+Poetry is a modern dependency management tool for Python projects. It simplifies the process of managing dependencies, packaging, and publishing Python projects by providing a single tool that handles all these tasks seamlessly.
+
+IMPORTANT: A Python virtual environment is a self-contained directory tree that contains a Python installation for a particular version of Python, plus a number of additional packages. It allows you to work on a specific Python project without affecting the system-wide Python installation or other projects.
+
+== Why Poetry?
+
+Poetry offers several benefits that make it a preferred choice for Python dependency management:
+
+1. **Dependency Resolution:**
+   Poetry uses a lock file (`poetry.lock`) to ensure deterministic dependency resolution. This means that all developers working on a project will have the same dependency versions installed, eliminating inconsistencies and potential conflicts.
+
+2. **Virtual Environment Management:**
+   Poetry automatically creates and manages virtual environments for your projects. This ensures that dependencies are isolated from other projects and system packages, reducing the risk of dependency conflicts.
+
+3. **Simplified Dependency Declaration:**
+   Poetry simplifies the process of declaring dependencies in your project. You can specify dependencies and their versions in the `pyproject.toml` file using a clear and intuitive syntax.
+
+4. **Dependency Installation and Updates:**
+   Poetry provides commands to install and update dependencies with ease. It automatically resolves dependencies, installs them in the virtual environment, and updates the lock file to reflect the current state of the project.
+
+5. **Packaging and Publishing:**
+   Poetry allows you to package your Python projects easily and publish them to PyPI or other package repositories. It handles the creation of distribution packages (`sdist` and `wheel`) and simplifies the publishing process with a single command.
+
+== Getting Started with Poetry
+
+. **Installation:** You can install Poetry using pip:
++
+[source,bash]
+----
+pipx install poetry
+----
+
+. **Initializing a New Project:** To create a new Python project with Poetry, navigate to your project directory and run:
++
+[source,bash]
+----
+poetry init
+----
++
+Follow the prompts to provide information about your project and its dependencies.
+
+. **Adding Dependencies:** You can add dependencies to your project using the `poetry add` command:
++
+[source,bash]
+----
+poetry add package_name
+----
++
+Poetry will automatically update the `pyproject.toml` file and install the specified package in your project's virtual environment.
+
+. **Installing Dependencies:** To install dependencies listed in the `pyproject.toml` file, run:
++
+[source,bash]
+----
+poetry install
+----
++
+Poetry will resolve dependencies, create a virtual environment if it doesn't exist, and install the dependencies into the virtual environment.
+
+. **Updating Dependencies:** You can update dependencies to their latest compatible versions using:
++
+[source,bash]
+----
+poetry update
+----
++
+Poetry will update the `pyproject.toml` file and the `poetry.lock` file with the latest dependency versions.
+
+== Conclusion
+
+Poetry is a powerful and user-friendly tool for managing Python dependencies, packaging, and publishing projects. Its intuitive interface, dependency resolution mechanism, and virtual environment management make it an essential tool for Python developers.
+
+NOTE: Generated using LLMs

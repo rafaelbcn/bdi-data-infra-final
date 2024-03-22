@@ -1,0 +1,26 @@
+[2024-03-20T14:54:06.710+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: aircraft_data_insertion.create_tables manual__2024-03-20T14:54:05.247000+00:00 [queued]>
+[2024-03-20T14:54:06.734+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: aircraft_data_insertion.create_tables manual__2024-03-20T14:54:05.247000+00:00 [queued]>
+[2024-03-20T14:54:06.734+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 1
+[2024-03-20T14:54:06.747+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): create_tables> on 2024-03-20 14:54:05.247000+00:00
+[2024-03-20T14:54:06.757+0000] {standard_task_runner.py:60} INFO - Started process 11164 to run task
+[2024-03-20T14:54:06.761+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'aircraft_data_insertion', 'create_tables', 'manual__2024-03-20T14:54:05.247000+00:00', '--job-id', '48', '--raw', '--subdir', 'DAGS_FOLDER/dag_prep_3.py', '--cfg-path', '/tmp/tmpyvma7o8w']
+[2024-03-20T14:54:06.762+0000] {standard_task_runner.py:88} INFO - Job 48: Subtask create_tables
+[2024-03-20T14:54:06.820+0000] {task_command.py:423} INFO - Running <TaskInstance: aircraft_data_insertion.create_tables manual__2024-03-20T14:54:05.247000+00:00 [running]> on host 33271a7f5777
+[2024-03-20T14:54:06.892+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='aircraft_data_insertion' AIRFLOW_CTX_TASK_ID='create_tables' AIRFLOW_CTX_EXECUTION_DATE='2024-03-20T14:54:05.247000+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-20T14:54:05.247000+00:00'
+[2024-03-20T14:54:06.962+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/dag_prep_3.py", line 24, in create_tables
+    logging.info(c)
+UnboundLocalError: local variable 'c' referenced before assignment
+[2024-03-20T14:54:06.970+0000] {taskinstance.py:1149} INFO - Marking task as FAILED. dag_id=aircraft_data_insertion, task_id=create_tables, execution_date=20240320T145405, start_date=20240320T145406, end_date=20240320T145406
+[2024-03-20T14:54:06.976+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 48 for task create_tables (local variable 'c' referenced before assignment; 11164)
+[2024-03-20T14:54:07.018+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-20T14:54:07.035+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

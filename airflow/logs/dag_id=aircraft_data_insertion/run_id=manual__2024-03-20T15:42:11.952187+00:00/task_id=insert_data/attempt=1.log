@@ -1,0 +1,26 @@
+[2024-03-20T15:42:13.840+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: aircraft_data_insertion.insert_data manual__2024-03-20T15:42:11.952187+00:00 [queued]>
+[2024-03-20T15:42:13.846+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: aircraft_data_insertion.insert_data manual__2024-03-20T15:42:11.952187+00:00 [queued]>
+[2024-03-20T15:42:13.846+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 1
+[2024-03-20T15:42:13.852+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): insert_data> on 2024-03-20 15:42:11.952187+00:00
+[2024-03-20T15:42:13.856+0000] {standard_task_runner.py:60} INFO - Started process 11758 to run task
+[2024-03-20T15:42:13.858+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'aircraft_data_insertion', 'insert_data', 'manual__2024-03-20T15:42:11.952187+00:00', '--job-id', '61', '--raw', '--subdir', 'DAGS_FOLDER/dag_prep_3.py', '--cfg-path', '/tmp/tmphhgvz4y6']
+[2024-03-20T15:42:13.859+0000] {standard_task_runner.py:88} INFO - Job 61: Subtask insert_data
+[2024-03-20T15:42:13.889+0000] {task_command.py:423} INFO - Running <TaskInstance: aircraft_data_insertion.insert_data manual__2024-03-20T15:42:11.952187+00:00 [running]> on host 33271a7f5777
+[2024-03-20T15:42:13.925+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='aircraft_data_insertion' AIRFLOW_CTX_TASK_ID='insert_data' AIRFLOW_CTX_EXECUTION_DATE='2024-03-20T15:42:11.952187+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-20T15:42:11.952187+00:00'
+[2024-03-20T15:42:13.949+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/dag_prep_3.py", line 51, in insert_data
+    with open('../data/aircraft_type/basic-ac-db.json') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '../data/aircraft_type/basic-ac-db.json'
+[2024-03-20T15:42:13.955+0000] {taskinstance.py:1149} INFO - Marking task as FAILED. dag_id=aircraft_data_insertion, task_id=insert_data, execution_date=20240320T154211, start_date=20240320T154213, end_date=20240320T154213
+[2024-03-20T15:42:13.976+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 61 for task insert_data ([Errno 2] No such file or directory: '../data/aircraft_type/basic-ac-db.json'; 11758)
+[2024-03-20T15:42:13.992+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-20T15:42:14.003+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,27 @@
+[2024-03-13T19:06:13.178+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: download_readsb_hist.check_if_data_exists manual__2024-03-13T19:06:11.786590+00:00 [queued]>
+[2024-03-13T19:06:13.182+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: download_readsb_hist.check_if_data_exists manual__2024-03-13T19:06:11.786590+00:00 [queued]>
+[2024-03-13T19:06:13.182+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2024-03-13T19:06:13.188+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): check_if_data_exists> on 2024-03-13 19:06:11.786590+00:00
+[2024-03-13T19:06:13.191+0000] {standard_task_runner.py:60} INFO - Started process 440 to run task
+[2024-03-13T19:06:13.193+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'download_readsb_hist', 'check_if_data_exists', 'manual__2024-03-13T19:06:11.786590+00:00', '--job-id', '14', '--raw', '--subdir', 'DAGS_FOLDER/dag_download.py', '--cfg-path', '/tmp/tmpaupv2ds2']
+[2024-03-13T19:06:13.195+0000] {standard_task_runner.py:88} INFO - Job 14: Subtask check_if_data_exists
+[2024-03-13T19:06:13.228+0000] {task_command.py:423} INFO - Running <TaskInstance: download_readsb_hist.check_if_data_exists manual__2024-03-13T19:06:11.786590+00:00 [running]> on host 33271a7f5777
+[2024-03-13T19:06:13.276+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='download_readsb_hist' AIRFLOW_CTX_TASK_ID='check_if_data_exists' AIRFLOW_CTX_EXECUTION_DATE='2024-03-13T19:06:11.786590+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-13T19:06:11.786590+00:00'
+[2024-03-13T19:06:13.277+0000] {logging_mixin.py:188} INFO - Checking if data already exists in S3...
+[2024-03-13T19:06:13.277+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/dag_download.py", line 63, in check_if_data_exists
+    s3_client = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+NameError: name 'AWS_ACCESS_KEY_ID' is not defined
+[2024-03-13T19:06:13.282+0000] {taskinstance.py:1149} INFO - Marking task as UP_FOR_RETRY. dag_id=download_readsb_hist, task_id=check_if_data_exists, execution_date=20240313T190611, start_date=20240313T190613, end_date=20240313T190613
+[2024-03-13T19:06:13.287+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 14 for task check_if_data_exists (name 'AWS_ACCESS_KEY_ID' is not defined; 440)
+[2024-03-13T19:06:13.330+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-13T19:06:13.342+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

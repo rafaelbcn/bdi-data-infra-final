@@ -1,0 +1,36 @@
+[2024-03-20T14:48:37.983+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: aircraft_data_insertion.create_tables manual__2024-03-20T14:48:37.035720+00:00 [queued]>
+[2024-03-20T14:48:37.990+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: aircraft_data_insertion.create_tables manual__2024-03-20T14:48:37.035720+00:00 [queued]>
+[2024-03-20T14:48:37.990+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 1
+[2024-03-20T14:48:37.998+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): create_tables> on 2024-03-20 14:48:37.035720+00:00
+[2024-03-20T14:48:38.003+0000] {standard_task_runner.py:60} INFO - Started process 11080 to run task
+[2024-03-20T14:48:38.009+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'aircraft_data_insertion', 'create_tables', 'manual__2024-03-20T14:48:37.035720+00:00', '--job-id', '46', '--raw', '--subdir', 'DAGS_FOLDER/dag_prep_3.py', '--cfg-path', '/tmp/tmpke0sx06r']
+[2024-03-20T14:48:38.010+0000] {standard_task_runner.py:88} INFO - Job 46: Subtask create_tables
+[2024-03-20T14:48:38.087+0000] {task_command.py:423} INFO - Running <TaskInstance: aircraft_data_insertion.create_tables manual__2024-03-20T14:48:37.035720+00:00 [running]> on host 33271a7f5777
+[2024-03-20T14:48:38.137+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='aircraft_data_insertion' AIRFLOW_CTX_TASK_ID='create_tables' AIRFLOW_CTX_EXECUTION_DATE='2024-03-20T14:48:37.035720+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-20T14:48:37.035720+00:00'
+[2024-03-20T14:48:38.139+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/dag_prep_3.py", line 17, in create_tables
+    conn = psycopg2.connect(
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "localhost" (127.0.0.1), port 5433 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (::1), port 5433 failed: Cannot assign requested address
+	Is the server running on that host and accepting TCP/IP connections?
+
+[2024-03-20T14:48:38.144+0000] {taskinstance.py:1149} INFO - Marking task as FAILED. dag_id=aircraft_data_insertion, task_id=create_tables, execution_date=20240320T144837, start_date=20240320T144837, end_date=20240320T144838
+[2024-03-20T14:48:38.150+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 46 for task create_tables (connection to server at "localhost" (127.0.0.1), port 5433 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (::1), port 5433 failed: Cannot assign requested address
+	Is the server running on that host and accepting TCP/IP connections?
+; 11080)
+[2024-03-20T14:48:38.186+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-20T14:48:38.203+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

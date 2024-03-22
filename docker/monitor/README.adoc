@@ -1,0 +1,14 @@
+= Add Uptrace as telemetry monitoring
+
+See: https://github.com/uptrace/uptrace/tree/master/example/docker
+
+And adapt your dockerfile to include this docker file.
+
+[source,yaml]
+----
+include:
+  - monitor/uptrace.yaml
+
+services:
+  ...
+----

@@ -1,0 +1,26 @@
+[2024-03-14T21:20:37.696+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: download_aircraft_fuel_consumption.download_fuel_consumption_rates manual__2024-03-14T21:15:35.212504+00:00 [queued]>
+[2024-03-14T21:20:37.700+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: download_aircraft_fuel_consumption.download_fuel_consumption_rates manual__2024-03-14T21:15:35.212504+00:00 [queued]>
+[2024-03-14T21:20:37.701+0000] {taskinstance.py:2193} INFO - Starting attempt 2 of 2
+[2024-03-14T21:20:37.707+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): download_fuel_consumption_rates> on 2024-03-14 21:15:35.212504+00:00
+[2024-03-14T21:20:37.710+0000] {standard_task_runner.py:60} INFO - Started process 8000 to run task
+[2024-03-14T21:20:37.713+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'download_aircraft_fuel_consumption', 'download_fuel_consumption_rates', 'manual__2024-03-14T21:15:35.212504+00:00', '--job-id', '22', '--raw', '--subdir', 'DAGS_FOLDER/dag_ aircraft_type.py', '--cfg-path', '/tmp/tmpzifoeoz_']
+[2024-03-14T21:20:37.714+0000] {standard_task_runner.py:88} INFO - Job 22: Subtask download_fuel_consumption_rates
+[2024-03-14T21:20:37.744+0000] {task_command.py:423} INFO - Running <TaskInstance: download_aircraft_fuel_consumption.download_fuel_consumption_rates manual__2024-03-14T21:15:35.212504+00:00 [running]> on host 33271a7f5777
+[2024-03-14T21:20:37.779+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='download_aircraft_fuel_consumption' AIRFLOW_CTX_TASK_ID='download_fuel_consumption_rates' AIRFLOW_CTX_EXECUTION_DATE='2024-03-14T21:15:35.212504+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-14T21:15:35.212504+00:00'
+[2024-03-14T21:20:38.539+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/dag_ aircraft_type.py", line 18, in download_fuel_consumption_rates
+    with open(target_path, "wb") as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/vanessabragacosta/Documents/S8_Clone/big-data-infrastructure-exercises/data/aircraft_type/'
+[2024-03-14T21:20:38.550+0000] {taskinstance.py:1149} INFO - Marking task as FAILED. dag_id=download_aircraft_fuel_consumption, task_id=download_fuel_consumption_rates, execution_date=20240314T211535, start_date=20240314T212037, end_date=20240314T212038
+[2024-03-14T21:20:38.561+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 22 for task download_fuel_consumption_rates ([Errno 2] No such file or directory: '/Users/vanessabragacosta/Documents/S8_Clone/big-data-infrastructure-exercises/data/aircraft_type/'; 8000)
+[2024-03-14T21:20:38.571+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-14T21:20:38.584+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

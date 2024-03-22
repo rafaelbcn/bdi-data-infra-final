@@ -1,0 +1,63 @@
+= Big Data Infrastructure Exercises
+
+We'll use this repository through our course.
+Starting it from a small application to have something
+bigger and more complex.
+
+== Installation
+
+* Use python 3.11
+* https://github.com/pypa/pipx#install-pipx[Install `pipx` 🔗]
+* Install poetry (dependency manager) `pipx install poetry`
+
+Run `poetry install`
+
+If you need to add any package, just add it inside `pyproject.toml`
+to the `[tool.poetry.dependencies]` section.
+Then run `poetry update`
+
+
+== How will the exercises be evaluated?
+
+For the parts requiring code, I'll consider the following:
+
+1. Start the application. It does not start -> 0 automatically
+2. I'll run a series of validation tests against your application (6 points)
+ * % of passed tests
+3. Pass code linting (`ruff`, for best code practices) (1 points)
+ * 0 -> 100%
+ * 1-3 -> 80%
+ * 4-5 -> 60%
+ * 6-8 -> 50%
+ * >8 -> 0%
+4. Performance evaluation (1 point)
+ * Ranked according to the best of youXXXXXXXXXXXXX
+5. Tests you might have implemented (2 points)
+ * Coverage % and completeness
+ * Failing tests result in a 0 for this section
+
+WARNING: Late delivery not justified: -1 points per day
+
+
+== Libraries
+
+https://fastapi.tiangolo.com/[FastAPI] is one of the best libraries for building an API with Python.
+It has a great documentation and enables us to build
+type safe and documented APIs easily.
+
+
+
+== Data
+Use the `data/` folder to store your data.
+It will not be uploaded to any git repository.
+
+
+== Resources
+
+* link:docs/api.adoc[What is an API]
+* link:docs/pyenv.adoc[Pyenv: multiple python environments and versions]
+* link:docs/poetry.adoc[Poetry for python dependency management]
+* link:docs/env_variables.adoc[Environment variables]
+* link:docs/pydantic.adoc[Pydantic for settings]
+* link:https://realpython.com/python-testing/[Getting Started with Testing in Python]
+*

@@ -1,0 +1,31 @@
+[2024-03-12T18:36:21.947+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: download_readsb_hist.check_if_data_exists manual__2024-03-12T18:31:16.177941+00:00 [queued]>
+[2024-03-12T18:36:21.951+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: download_readsb_hist.check_if_data_exists manual__2024-03-12T18:31:16.177941+00:00 [queued]>
+[2024-03-12T18:36:21.952+0000] {taskinstance.py:2193} INFO - Starting attempt 2 of 2
+[2024-03-12T18:36:21.958+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): check_if_data_exists> on 2024-03-12 18:31:16.177941+00:00
+[2024-03-12T18:36:21.961+0000] {standard_task_runner.py:60} INFO - Started process 8397 to run task
+[2024-03-12T18:36:21.964+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'download_readsb_hist', 'check_if_data_exists', 'manual__2024-03-12T18:31:16.177941+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/dag_download.py', '--cfg-path', '/tmp/tmpqvi7vhgv']
+[2024-03-12T18:36:21.966+0000] {standard_task_runner.py:88} INFO - Job 4: Subtask check_if_data_exists
+[2024-03-12T18:36:21.993+0000] {task_command.py:423} INFO - Running <TaskInstance: download_readsb_hist.check_if_data_exists manual__2024-03-12T18:31:16.177941+00:00 [running]> on host 25c6fecee4f7
+[2024-03-12T18:36:22.046+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='download_readsb_hist' AIRFLOW_CTX_TASK_ID='check_if_data_exists' AIRFLOW_CTX_EXECUTION_DATE='2024-03-12T18:31:16.177941+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-12T18:31:16.177941+00:00'
+[2024-03-12T18:36:22.048+0000] {logging_mixin.py:188} INFO - Checking if data already exists in S3...
+[2024-03-12T18:36:22.911+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/dag_download.py", line 66, in check_if_data_exists
+    response = s3_client.list_objects_v2(Bucket=S3_BUCKET, Prefix=prefix)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/client.py", line 553, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/botocore/client.py", line 1009, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.exceptions.ClientError: An error occurred (InvalidAccessKeyId) when calling the ListObjectsV2 operation: The AWS Access Key Id you provided does not exist in our records.
+[2024-03-12T18:36:22.924+0000] {taskinstance.py:1149} INFO - Marking task as FAILED. dag_id=download_readsb_hist, task_id=check_if_data_exists, execution_date=20240312T183116, start_date=20240312T183621, end_date=20240312T183622
+[2024-03-12T18:36:22.935+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 4 for task check_if_data_exists (An error occurred (InvalidAccessKeyId) when calling the ListObjectsV2 operation: The AWS Access Key Id you provided does not exist in our records.; 8397)
+[2024-03-12T18:36:22.959+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-12T18:36:22.977+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check
