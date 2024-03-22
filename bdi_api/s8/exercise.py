@@ -85,29 +85,26 @@ from fastapi.responses import JSONResponse
 async def get_aircraft_co2(icao: str, day: Optional[str] = None) -> AircraftCO2:
     connection = None
     try:
-        connection = await get_db_connection()  # Replace with your actual database connection function
+        connection = await get_db_connection()  # Assume this is correctly implemented
 
-        # New query logic
         query = """
         SELECT
-            aircraft_data.icao,
-            SUM((fuel_consumption.galph * 3.04) * 3.15 / 907.185) AS co2_tons,
-            COUNT(*) * 5 / 3600 AS hours_flown -- Each row represents 5 seconds, convert total seconds to hours
+            aircraft_data.icao, 
+            CAST(COUNT(*) AS FLOAT) * 5 / 3600 AS hour_flown,
+            SUM((fuel_consumption.galph * 3.04) * 3.15 / 907.185) AS co2_tons
         FROM
             aircraft_data
-        LEFT JOIN fuel_consumption ON aircraft_data.aircraft_type = fuel_consumption.icao
+        INNER JOIN fuel_consumption ON aircraft_data.aircraft_type = fuel_consumption.icao
         WHERE
             aircraft_data.icao = $1
         GROUP BY
             aircraft_data.icao;
         """
 
-        # Execute the query with the provided icao code
         result = await connection.fetchrow(query, icao)
 
         if result:
-            # If there's a result, use it; otherwise, default to 0 or None
-            hours_flown = result['hours_flown'] or 0
+            hours_flown = result['hour_flown'] or 0
             co2_tons = result['co2_tons']
         else:
             hours_flown = 0
@@ -119,5 +116,4 @@ async def get_aircraft_co2(icao: str, day: Optional[str] = None) -> AircraftCO2:
         if connection:
             await connection.close()
 
-    # Return an instance of AircraftCO2 with the fetched data
     return AircraftCO2(icao=icao, hours_flown=hours_flown, co2=co2_tons)

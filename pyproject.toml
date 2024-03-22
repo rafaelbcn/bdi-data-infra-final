@@ -22,7 +22,7 @@ pydantic = "^2.4"
 pydantic-settings = "^2.0"
 boto3 = "^1.33.7"
 urllib3 = "<2"  # Needed to resolve botocore fast
-duckdb = "^0.9.2"
+
 # Monitoring
 uptrace = "1.21.0"
 opentelemetry-api = "1.21.0"
