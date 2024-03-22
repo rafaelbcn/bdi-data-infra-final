@@ -1,0 +1,15 @@
+[2024-03-22T15:20:20.429+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: download_readsb_hist.check_if_data_exists manual__2024-03-22T15:20:18.402755+00:00 [queued]>
+[2024-03-22T15:20:20.434+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: download_readsb_hist.check_if_data_exists manual__2024-03-22T15:20:18.402755+00:00 [queued]>
+[2024-03-22T15:20:20.434+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2024-03-22T15:20:20.440+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): check_if_data_exists> on 2024-03-22 15:20:18.402755+00:00
+[2024-03-22T15:20:20.446+0000] {standard_task_runner.py:60} INFO - Started process 197 to run task
+[2024-03-22T15:20:20.448+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'download_readsb_hist', 'check_if_data_exists', 'manual__2024-03-22T15:20:18.402755+00:00', '--job-id', '66', '--raw', '--subdir', 'DAGS_FOLDER/dag_download.py', '--cfg-path', '/tmp/tmpxp2qebzw']
+[2024-03-22T15:20:20.450+0000] {standard_task_runner.py:88} INFO - Job 66: Subtask check_if_data_exists
+[2024-03-22T15:20:20.472+0000] {task_command.py:423} INFO - Running <TaskInstance: download_readsb_hist.check_if_data_exists manual__2024-03-22T15:20:18.402755+00:00 [running]> on host c6b73a83fed6
+[2024-03-22T15:20:20.527+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='download_readsb_hist' AIRFLOW_CTX_TASK_ID='check_if_data_exists' AIRFLOW_CTX_EXECUTION_DATE='2024-03-22T15:20:18.402755+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-22T15:20:18.402755+00:00'
+[2024-03-22T15:20:20.530+0000] {logging_mixin.py:188} INFO - Checking if data already exists in S3...
+[2024-03-22T15:20:21.788+0000] {logging_mixin.py:188} INFO - No data found for this date.
+[2024-03-22T15:20:21.797+0000] {python.py:202} INFO - Done. Returned value was: False
+[2024-03-22T15:20:21.846+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=download_readsb_hist, task_id=check_if_data_exists, execution_date=20240322T152018, start_date=20240322T152020, end_date=20240322T152021
+[2024-03-22T15:20:21.922+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2024-03-22T15:20:21.949+0000] {taskinstance.py:3309} INFO - 1 downstream tasks scheduled from follow-on schedule check

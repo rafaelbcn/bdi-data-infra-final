@@ -1,0 +1,38 @@
+[2024-03-22T15:35:17.408+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: aircraft_data_processing.initialize_database_and_store_data manual__2024-03-22T15:34:32.833571+00:00 [queued]>
+[2024-03-22T15:35:17.413+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: aircraft_data_processing.initialize_database_and_store_data manual__2024-03-22T15:34:32.833571+00:00 [queued]>
+[2024-03-22T15:35:17.413+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2024-03-22T15:35:17.421+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): initialize_database_and_store_data> on 2024-03-22 15:34:32.833571+00:00
+[2024-03-22T15:35:17.438+0000] {standard_task_runner.py:60} INFO - Started process 637 to run task
+[2024-03-22T15:35:17.444+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'aircraft_data_processing', 'initialize_database_and_store_data', 'manual__2024-03-22T15:34:32.833571+00:00', '--job-id', '72', '--raw', '--subdir', 'DAGS_FOLDER/dag_prep_2.py', '--cfg-path', '/tmp/tmp845lkqry']
+[2024-03-22T15:35:17.448+0000] {standard_task_runner.py:88} INFO - Job 72: Subtask initialize_database_and_store_data
+[2024-03-22T15:35:17.478+0000] {task_command.py:423} INFO - Running <TaskInstance: aircraft_data_processing.initialize_database_and_store_data manual__2024-03-22T15:34:32.833571+00:00 [running]> on host c6b73a83fed6
+[2024-03-22T15:35:17.517+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='aircraft_data_processing' AIRFLOW_CTX_TASK_ID='initialize_database_and_store_data' AIRFLOW_CTX_EXECUTION_DATE='2024-03-22T15:34:32.833571+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-22T15:34:32.833571+00:00'
+[2024-03-22T15:35:18.450+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/dag_prep_2.py", line 172, in task_initialize_database_and_store_data
+    initialize_database_and_store_data(formatted_data)
+  File "/opt/airflow/dags/dag_prep_2.py", line 117, in initialize_database_and_store_data
+    conn = psycopg2.connect(
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "localhost" (127.0.0.1), port 5433 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (::1), port 5433 failed: Cannot assign requested address
+	Is the server running on that host and accepting TCP/IP connections?
+
+[2024-03-22T15:35:18.461+0000] {taskinstance.py:1149} INFO - Marking task as UP_FOR_RETRY. dag_id=aircraft_data_processing, task_id=initialize_database_and_store_data, execution_date=20240322T153432, start_date=20240322T153517, end_date=20240322T153518
+[2024-03-22T15:35:18.469+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 72 for task initialize_database_and_store_data (connection to server at "localhost" (127.0.0.1), port 5433 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (::1), port 5433 failed: Cannot assign requested address
+	Is the server running on that host and accepting TCP/IP connections?
+; 637)
+[2024-03-22T15:35:18.491+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-22T15:35:18.514+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

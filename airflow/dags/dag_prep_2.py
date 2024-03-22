@@ -8,6 +8,7 @@ import json
 import pandas as pd
 import logging
 import gzip
+from airflow.models import Variable
 
 # DAG configuration
 default_args = {
@@ -24,17 +25,18 @@ dag = DAG(
 )
 
 # Database configuration variables
-DB_HOST = 'localhost'
+DB_HOST = 'host.docker.internal'
 DB_PORT = 5433
 DB_NAME = 'postgres'
 DB_PASSWORD = 'postgres'
 DB_USERNAME = 'postgres'
 
 # Hardcoded AWS S3 credentials
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
-AWS_SESSION_TOKEN = ''
-S3_BUCKET_NAME = 'bdi-aircraft-rafaelbraga'
+S3_BUCKET_NAME = Variable.get('S3_BUCKET')
+AWS_ACCESS_KEY_ID = Variable.get('AWS_ACCESS_KEY_ID')  # Corrected variable name and updated value
+AWS_SECRET_ACCESS_KEY = Variable.get('AWS_SECRET_ACCESS_KEY')  # Updated value
+AWS_SESSION_TOKEN = Variable.get('AWS_SESSION_TOKEN')  # Updated value
+
 
 def format_for_db(aircraft: dict) -> tuple:
     """
@@ -69,6 +71,7 @@ def format_for_db(aircraft: dict) -> tuple:
         int(aircraft.get("messages", 0)),  # Number of ADS-B messages
         float(aircraft.get("now", 0.0))  # Current time, default to 0.0
     )
+    
 def download_and_prepare_data():
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
@@ -85,6 +88,7 @@ def download_and_prepare_data():
 
     formatted_data_list = []
 
+    logger.info("iterativas")
     for file in all_files:
         if file.endswith('.json.gz'):
             obj = s3_client.get_object(Bucket=S3_BUCKET_NAME, Key=file)
@@ -112,11 +116,11 @@ def initialize_database_and_store_data(formatted_data):
         host=DB_HOST,
         port=DB_PORT
     )
-
+    print('CREATING DATABASE TABLE')
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS aircraft_data (
-            icao VARCHAR(255) UNIQUE,
+            icao VARCHAR(255),
             registration VARCHAR(255),
             aircraft_type VARCHAR(255),
             altitude_baro INTEGER,
@@ -134,7 +138,7 @@ def initialize_database_and_store_data(formatted_data):
     if formatted_data:
         query = """
         INSERT INTO aircraft_data (icao, registration, aircraft_type, altitude_baro, ground_speed, had_emergency, timestamp, lat, lon, messages, now)
-        VALUES %s ON CONFLICT (icao) DO NOTHING;
+        VALUES %s;
         """
         execute_values(cursor, query, formatted_data, template=None, page_size=100)
         conn.commit()
@@ -157,9 +161,12 @@ download_and_prepare_data_task = PythonOperator(
 
 # Initialize database and store data task
 def task_initialize_database_and_store_data(**kwargs):
+    print('Entering TASK PYTHON OPERATOR')
     ti = kwargs['ti']
     formatted_data = ti.xcom_pull(task_ids='download_and_prepare_data', key='formatted_data')
+    print('DATA VALIDATED')
     if formatted_data:
+        print('Processing data')
         initialize_database_and_store_data(formatted_data)
 
 initialize_database_and_store_data_task = PythonOperator(

@@ -1,0 +1,18 @@
+[2024-03-22T16:12:44.579+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: aircraft_data_processing.initialize_database_and_store_data manual__2024-03-22T16:11:32.507424+00:00 [queued]>
+[2024-03-22T16:12:44.583+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: aircraft_data_processing.initialize_database_and_store_data manual__2024-03-22T16:11:32.507424+00:00 [queued]>
+[2024-03-22T16:12:44.583+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2024-03-22T16:12:44.590+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): initialize_database_and_store_data> on 2024-03-22 16:11:32.507424+00:00
+[2024-03-22T16:12:44.597+0000] {standard_task_runner.py:60} INFO - Started process 400 to run task
+[2024-03-22T16:12:44.601+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'aircraft_data_processing', 'initialize_database_and_store_data', 'manual__2024-03-22T16:11:32.507424+00:00', '--job-id', '87', '--raw', '--subdir', 'DAGS_FOLDER/dag_prep_2.py', '--cfg-path', '/tmp/tmpa15ntgb9']
+[2024-03-22T16:12:44.603+0000] {standard_task_runner.py:88} INFO - Job 87: Subtask initialize_database_and_store_data
+[2024-03-22T16:12:44.639+0000] {task_command.py:423} INFO - Running <TaskInstance: aircraft_data_processing.initialize_database_and_store_data manual__2024-03-22T16:11:32.507424+00:00 [running]> on host 58dabeb1f433
+[2024-03-22T16:12:44.697+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='aircraft_data_processing' AIRFLOW_CTX_TASK_ID='initialize_database_and_store_data' AIRFLOW_CTX_EXECUTION_DATE='2024-03-22T16:11:32.507424+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-22T16:11:32.507424+00:00'
+[2024-03-22T16:12:44.699+0000] {logging_mixin.py:188} INFO - Entering TASK PYTHON OPERATOR
+[2024-03-22T16:12:51.534+0000] {logging_mixin.py:188} INFO - DATA VALIDATED
+[2024-03-22T16:12:51.537+0000] {logging_mixin.py:188} INFO - Processing data
+[2024-03-22T16:12:51.596+0000] {logging_mixin.py:188} INFO - CREATING DATABASE TABLE
+[2024-03-22T16:13:59.559+0000] {logging_mixin.py:188} INFO - Database initialization and data storage completed successfully.
+[2024-03-22T16:14:00.233+0000] {python.py:202} INFO - Done. Returned value was: None
+[2024-03-22T16:14:00.285+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=aircraft_data_processing, task_id=initialize_database_and_store_data, execution_date=20240322T161132, start_date=20240322T161244, end_date=20240322T161400
+[2024-03-22T16:14:00.373+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2024-03-22T16:14:00.410+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

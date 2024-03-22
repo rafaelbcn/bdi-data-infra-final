@@ -1,0 +1,36 @@
+[2024-03-22T15:42:46.442+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: aircraft_data_processing.initialize_database_and_store_data manual__2024-03-22T15:39:26.171153+00:00 [queued]>
+[2024-03-22T15:42:46.448+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: aircraft_data_processing.initialize_database_and_store_data manual__2024-03-22T15:39:26.171153+00:00 [queued]>
+[2024-03-22T15:42:46.448+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2024-03-22T15:42:46.457+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): initialize_database_and_store_data> on 2024-03-22 15:39:26.171153+00:00
+[2024-03-22T15:42:46.468+0000] {standard_task_runner.py:60} INFO - Started process 756 to run task
+[2024-03-22T15:42:46.472+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'aircraft_data_processing', 'initialize_database_and_store_data', 'manual__2024-03-22T15:39:26.171153+00:00', '--job-id', '74', '--raw', '--subdir', 'DAGS_FOLDER/dag_prep_2.py', '--cfg-path', '/tmp/tmpqji640_w']
+[2024-03-22T15:42:46.475+0000] {standard_task_runner.py:88} INFO - Job 74: Subtask initialize_database_and_store_data
+[2024-03-22T15:42:46.506+0000] {task_command.py:423} INFO - Running <TaskInstance: aircraft_data_processing.initialize_database_and_store_data manual__2024-03-22T15:39:26.171153+00:00 [running]> on host c6b73a83fed6
+[2024-03-22T15:42:46.654+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='aircraft_data_processing' AIRFLOW_CTX_TASK_ID='initialize_database_and_store_data' AIRFLOW_CTX_EXECUTION_DATE='2024-03-22T15:39:26.171153+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-22T15:39:26.171153+00:00'
+[2024-03-22T15:42:48.776+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/dag_prep_2.py", line 172, in task_initialize_database_and_store_data
+    initialize_database_and_store_data(formatted_data)
+  File "/opt/airflow/dags/dag_prep_2.py", line 148, in initialize_database_and_store_data
+    execute_values(cursor, query, formatted_data, template=None, page_size=100)
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.SyntaxError: syntax error at or near ")"
+LINE 3:         VALUES (),(),(),(),(),(),(),(),(),(),(),(),(),(),(),...
+                        ^
+
+[2024-03-22T15:42:48.794+0000] {taskinstance.py:1149} INFO - Marking task as UP_FOR_RETRY. dag_id=aircraft_data_processing, task_id=initialize_database_and_store_data, execution_date=20240322T153926, start_date=20240322T154246, end_date=20240322T154248
+[2024-03-22T15:42:48.809+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 74 for task initialize_database_and_store_data (syntax error at or near ")"
+LINE 3:         VALUES (),(),(),(),(),(),(),(),(),(),(),(),(),(),(),...
+                        ^
+; 756)
+[2024-03-22T15:42:48.887+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-22T15:42:49.022+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

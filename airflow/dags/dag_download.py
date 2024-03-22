@@ -8,6 +8,7 @@ import requests
 from bs4 import BeautifulSoup  # For parsing HTML to find file links
 import os
 import shutil
+from airflow.models import Variable
 
 # Define default arguments for the DAG
 default_args = {
@@ -21,10 +22,10 @@ default_args = {
 }
 
 # AWS S3 bucket and credentials (Corrected variable names and values)
-S3_BUCKET = "bdi-aircraft-rafaelbraga"
-AWS_ACCESS_KEY_ID = ""  # Corrected variable name and updated value
-AWS_SECRET_ACCESS_KEY = ""  # Updated value
-AWS_SESSION_TOKEN = ""  # Updated value
+S3_BUCKET = Variable.get('S3_BUCKET')
+AWS_ACCESS_KEY_ID = Variable.get('AWS_ACCESS_KEY_ID')  # Corrected variable name and updated value
+AWS_SECRET_ACCESS_KEY = Variable.get('AWS_SECRET_ACCESS_KEY')  # Updated value
+AWS_SESSION_TOKEN = Variable.get('AWS_SESSION_TOKEN')  # Updated value
 
 # Base URL template for the data source
 BASE_URL = "https://samples.adsbexchange.com/readsb-hist/{year}/{month}/01/"

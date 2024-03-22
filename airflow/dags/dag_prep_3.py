@@ -4,6 +4,7 @@ from datetime import datetime
 import psycopg2
 import logging
 import json
+import gzip
 
 # Assuming you've already defined these variables in your DAG or globally
 DB_HOST = 'host.docker.internal'
@@ -49,9 +50,10 @@ def insert_data():
     c = conn.cursor()
 
     # Insert data into aircraft_basic_info
-    with open('/opt/airflow/dags/data/aircraft_type/basic-ac-db.json') as f:
+    with gzip.open('/opt/airflow/dags/data/aircraft_type/basic-ac-db.json.gz', 'rt', encoding='utf-8') as f:
         for line in f:
             data = json.loads(line)
+            print(data)
             c.execute('''INSERT INTO aircraft_basic_info 
                          VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                          ON CONFLICT (icao) DO NOTHING''', 
